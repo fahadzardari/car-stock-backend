@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import prisma from "../utils/prisma.js";
+import { getToken } from "../utils/jwtToken.js";
 export const authServices = {
   login: async (user) => {
     try {
@@ -15,7 +16,7 @@ export const authServices = {
       if (!isMatch) {
         throw new Error("Incorrect username or password");
       }
-      return result;
+      return getToken(user.email);
     } catch (error) {
       throw error;
     }

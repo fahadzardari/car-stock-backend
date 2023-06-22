@@ -1,4 +1,4 @@
-export default function convertUserDataToObject(user) {
+export default function convertUserDataToObject(req) {
   return {
     username: req.body.username,
     email: req.body.email,
