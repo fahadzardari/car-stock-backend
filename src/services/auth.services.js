@@ -16,7 +16,7 @@ export const authServices = {
       if (!isMatch) {
         throw new Error("Incorrect username or password");
       }
-      return getToken(user.email);
+      return getToken(result);
     } catch (error) {
       throw error;
     }

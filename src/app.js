@@ -5,16 +5,16 @@ import dotenv from "dotenv";
 // routers
 import userRouter from "./routes/user.router.js";
 import authRouter from "./routes/auth.router.js";
-
+import carRouter from "./routes/car.router.js";
+import leadRouter from "./routes/lead.router.js";
 //config + variables
-dotenv.config();
 const app = express();
 app.use(express.json());
 
 // api endpoints
-app.use("/api/user", userRouter);
-// app.use("/api/car", carRouter);
-// app.use("/api/lead" , leadRouter);
+app.use("/api/users", userRouter);
+app.use("/api/cars", carRouter);
+app.use("/api/leads" , leadRouter);
 app.use("/api/auth", authRouter);
 
 // fallback
