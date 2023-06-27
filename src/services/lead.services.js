@@ -16,7 +16,7 @@ export const leadServices = {
       throw new Error(error.message);
     }
   },
-  getCarById: async (id) => {
+  getLeadById: async (id) => {
     try {
       const result = await prisma.lead.findUnique({
         where: {

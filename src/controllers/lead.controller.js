@@ -20,10 +20,11 @@ export const leadController = {
       return res.status(500).json({ result: "error", message: error.message });
     }
   },
-  getCarById: async (req, res) => {
+  getLeadById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const lead = await leadServices.getCarById(id);
+      const lead = await leadServices.getLeadById(id);
+      if(lead == null) return res.status(404).json({result: "Lead Doesn't exist"});
       return res.status(200).json({ result: "successfully got lead", lead: lead });
     } catch (error) {
       return res.status(500).json({ result: "error", message: error.message });
