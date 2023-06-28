@@ -6,7 +6,7 @@ export const authController = {
       const token = await authServices.login(req.body);
       return res
         .status(200)
-        .json({ result: "successfully logged in", user: token });
+        .json({ result: "successfully logged in", token: token });
     } catch (error) {
       return res.status(500).json({ result: "error", message: error.message });
     }
@@ -17,7 +17,7 @@ export const authController = {
       const result = await authServices.register(req.body);
       return res
         .status(201)
-        .json({ result: "successfully registered user", user: result });
+        .json({ result: "successfully registered user", token: result });
     } catch (error) {
       return res.status(500).json({ result: "error", message: error.message });
     }
