@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url=env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -19,7 +19,7 @@ model User {
 }
 
 model Car {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   make         String
   model        String
   year         Int
@@ -32,8 +32,12 @@ model Car {
   package      String
   priceRange   String
   chassisCode  String
-  link         String
   leads        Lead[]
+  image1       String
+  image2       String?
+  image3       String?
+  image4       String?
+  image5       String?
 }
 
 model Lead {

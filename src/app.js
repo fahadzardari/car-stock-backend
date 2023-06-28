@@ -10,7 +10,7 @@ import carRouter from "./routes/car.router.js";
 import leadRouter from "./routes/lead.router.js";
 //config + variables
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(cors());
 // api endpoints
 app.use("/api/users", userRouter);

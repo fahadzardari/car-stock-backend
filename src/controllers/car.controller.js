@@ -12,7 +12,7 @@ export const carController = {
   },
   create: async (req, res) => {
     try {
-      const car = await carServices.create(req.body);
+      const car = await carServices.create(req.body.data);
       return res
         .status(201)
         .json({ result: "successfully created car", car: car });
