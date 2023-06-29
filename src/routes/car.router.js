@@ -5,8 +5,8 @@ const carRouter = Router();
 
 // will be used from client side that's why no middleware
 carRouter.get("/", carController.get);
+carRouter.get("/makes", carController.getMakes);
 carRouter.get("/:id", carController.getCarById);
-carRouter.get("/make", carController.getMakes);
 
 // will be used from admin side that's why middleware
 carRouter.use(confirmToken);
