@@ -28,6 +28,19 @@ export const carServices = {
       throw new Error(error.message);
     }
   },
+  getMakes: async () => {
+    try {
+      const result = await prisma.car.findMany({
+        select: {
+          make: true,
+        },
+        distinct: ['make'],
+      });
+      return result;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   delete: async (id) => {
     try {
       const result = await prisma.car.delete({

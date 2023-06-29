@@ -6,11 +6,12 @@ const carRouter = Router();
 // will be used from client side that's why no middleware
 carRouter.get("/", carController.get);
 carRouter.get("/:id", carController.getCarById);
+carRouter.get("/make", carController.getMakes);
 
-
+// will be used from admin side that's why middleware
 carRouter.use(confirmToken);
 carRouter.post("/", carController.create);
-carRouter.delete("/:id" , carController.delete);
-carRouter.patch("/:id" , carController.update);
+carRouter.delete("/:id", carController.delete);
+carRouter.patch("/:id", carController.update);
 
 export default carRouter;

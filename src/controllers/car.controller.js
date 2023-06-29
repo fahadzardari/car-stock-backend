@@ -20,6 +20,16 @@ export const carController = {
       return res.status(500).json({ result: "error", message: error.message });
     }
   },
+  getMakes: async (req, res) => {
+    try {
+      const makes = await carServices.getMakes();
+      return res
+        .status(200)
+        .json({ result: "successfully got makes", makes: makes });
+    } catch (error) {
+      return res.status(500).json({ result: "error", message: error.message });
+    }
+  },
   getCarById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
