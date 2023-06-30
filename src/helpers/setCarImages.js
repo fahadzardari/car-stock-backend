@@ -3,7 +3,7 @@ export const setCarImages = (car) => {
         car.image1 = arrayBuffer1;
         if(car.image2){
                 const arrayBuffer2 = Buffer.from(car.image2, "base64");
-                car.image2 = arrayBuffer2;
+                car.image2 = arrayBuffer2; 
         }
         if(car.image3){
                 const arrayBuffer3 = Buffer.from(car.image3, "base64");
