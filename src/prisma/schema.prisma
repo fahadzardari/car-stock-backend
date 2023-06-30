@@ -33,11 +33,11 @@ model Car {
   priceRange   String
   chassisCode  String
   leads        Lead[]
-  image1       String
-  image2       String?
-  image3       String?
-  image4       String?
-  image5       String?
+  image1       Bytes    @db.LongBlob
+  image2       Bytes?   @db.LongBlob
+  image3       Bytes?   @db.LongBlob
+  image4       Bytes?   @db.LongBlob
+  image5       Bytes?   @db.LongBlob
 }
 
 model Lead {

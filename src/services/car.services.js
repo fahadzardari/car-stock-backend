@@ -1,4 +1,5 @@
 import prisma from "../utils/prisma.js";
+import { setCarImages } from "../helpers/setCarImages.js";
 export const carServices = {
   get: async () => {
     try {
@@ -10,6 +11,7 @@ export const carServices = {
   },
   create: async (car) => {
     try {
+      car = setCarImages(car);
       const result = await prisma.car.create({ data: car });
       return result;
     } catch (error) {
@@ -34,7 +36,7 @@ export const carServices = {
         select: {
           make: true,
         },
-        distinct: ['make'],
+        distinct: ["make"],
       });
       return result;
     } catch (error) {
