@@ -4,7 +4,15 @@ import prisma from "../utils/prisma.js";
 export const modelServices = {
   get: async () => {
     try {
-      const models = await prisma.model.findMany();
+      const models = await prisma.model.findMany({
+        include: {
+          make: {
+            select:{
+              name: true
+            }
+          }
+        },
+      });
       return models;
     } catch (error) {
       throw new Error(error.message);
