@@ -22,6 +22,17 @@ export const modelController = {
       return res.status(500).json({ result: "error", message: error.message });
     }
   },
+  filter: async (req, res) => {
+    try {
+      const filter = req.query;
+      const models = await modelServices.filter(filter);
+      return res
+        .status(200)
+        .json({ result: "successfully got models", models: models });
+    } catch (error) {
+      return res.status(500).json({ result: "error", message: error.message });
+    }
+  },
   getModelById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);

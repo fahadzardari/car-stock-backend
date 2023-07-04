@@ -22,15 +22,13 @@ export const packageController = {
       return res.status(500).json({ result: "error", message: error.message });
     }
   },
-  getPackageById: async (req, res) => {
+  filter: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
-      const pkg = await packageServices.getPackageById(id);
-      if (pkg == null)
-        return res.status(404).json({ result: "package doesn't exist" });
+      const filter = req.query;
+      const packages = await packageServices.filter(filter);
       return res
         .status(200)
-        .json({ result: "successfully got package", package: pkg });
+        .json({ result: "successfully got packages", packages: packages });
     } catch (error) {
       return res.status(500).json({ result: "error", message: error.message });
     }

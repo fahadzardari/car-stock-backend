@@ -26,6 +26,18 @@ export const modelServices = {
       throw new Error(error.message);
     }
   },
+  filter: async (filter) => {
+    try {
+      filter.makeId? filter.makeId = parseInt(filter.makeId): null;
+      const result = await prisma.model.findMany({
+        where: filter,
+      });
+      return result;
+    }
+    catch (error) {
+      throw new Error(error.message);
+    }
+  },
   getModelById: async (id) => {
     try {
       const result = await prisma.model.findUnique({

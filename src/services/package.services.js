@@ -4,7 +4,20 @@ import prisma from "../utils/prisma.js";
 export const packageServices = {
   get: async () => {
     try {
-      const packages = await prisma.package.findMany();
+      const packages = await prisma.package.findMany({
+        include: {
+          make: {
+            select: {
+              name: true,
+            },
+          },
+          model: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
       return packages;
     } catch (error) {
       throw new Error(error.message);
@@ -18,12 +31,13 @@ export const packageServices = {
       throw new Error(error.message);
     }
   },
-  getPackageById: async (id) => {
+  filter: async (filter) => {
+    filter.id ? (filter.id = parseInt(filter.id)) : null;
+    filter.makeId ? (filter.makeId = parseInt(filter.makeId)) : null;
+    filter.modelId ? (filter.modelId = parseInt(filter.modelId)) : null;
     try {
-      const result = await prisma.package.findUnique({
-        where: {
-          id: id, // Replace with the actual ID of the package you want to find
-        },
+      const result = await prisma.package.findMany({
+        where: filter,
       });
       return result;
     } catch (error) {

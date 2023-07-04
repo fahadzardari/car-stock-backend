@@ -5,7 +5,7 @@ import { confirmToken } from "../middlewares/confirmToken.middleware.js";
 
 const packageRouter = Router();
 packageRouter.get("/", packageController.get);
-packageRouter.get("/:id", packageController.getPackageById);
+packageRouter.get("/filter", packageController.filter);
 
 packageRouter.use(confirmToken);
 
