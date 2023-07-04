@@ -10,6 +10,22 @@ export const carController = {
       return res.status(500).json({ result: "error", message: error.message });
     }
   },
+  getPaginated: async (req, res) => {
+    try {
+      const { cars, currentPage, totalPages } =
+        await carServices.getPaginated(req);
+      return res
+        .status(201)
+        .json({
+          result: "successfully got paginated cars",
+          currentPage: currentPage,
+          totalPages: totalPages,
+          cars: cars,
+        });
+    } catch (error) {
+      return res.status(500).json({ result: "error", message: error.message });
+    }
+  },
   create: async (req, res) => {
     try {
       const car = await carServices.create(req.body.data);

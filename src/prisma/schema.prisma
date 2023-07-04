@@ -46,7 +46,9 @@ model Lead {
   email     String
   phone     String
   message   String?
+  contacted Boolean  @default(false)
   timestamp DateTime @default(now())
   Car       Car?     @relation(fields: [carId], references: [id])
   carId     Int?
+
 }
