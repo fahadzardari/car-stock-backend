@@ -8,6 +8,8 @@ leadRouter.post("/", leadController.create);
 
 leadRouter.use(confirmToken);
 leadRouter.get("/", leadController.get);
+leadRouter.get("/paginated" , leadController.getPaginated);
+leadRouter.patch("/updateStatus/:id" , leadController.updateStatus);
 leadRouter.get("/:id", leadController.getLeadById);
 leadRouter.delete("/:id" , leadController.delete);
 leadRouter.patch("/:id" , leadController.update);
