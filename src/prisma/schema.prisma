@@ -1,5 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,26 +16,57 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Make {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  Model     Model[]
+  Package   Package[]
+  Car       Car[]
+}
+
+model Model {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  make      Make      @relation(fields: [makeId], references: [id])
+  makeId    Int
+  createdAt DateTime  @default(now())
+  Package   Package[]
+  Car       Car[]
+}
+
+model Package {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  make      Make     @relation(fields: [makeId], references: [id])
+  makeId    Int
+  model     Model    @relation(fields: [modelId], references: [id])
+  modelId   Int
+  createdAt DateTime @default(now())
+  Car       Car[]
+}
+
 model Car {
-  id           Int     @id @default(autoincrement())
-  make         String
-  model        String
-  year         Int
-  mileage      Int
-  engineCC     String
-  steering     String
-  transmission String
-  driveTrain   String
-  fuel         String
-  package      String
-  priceRange   String
-  chassisCode  String
-  leads        Lead[]
-  image1       Bytes    @db.LongBlob
-  image2       Bytes?   @db.LongBlob
-  image3       Bytes?   @db.LongBlob
-  image4       Bytes?   @db.LongBlob
-  image5       Bytes?   @db.LongBlob
+  id               Int      @id @default(autoincrement())
+  make             Make     @relation(fields: [makeId], references: [id])
+  makeId           Int
+  model            Model    @relation(fields: [modelId], references: [id])
+  modelId          Int
+  year             Int
+  fuel             String
+  priceRange       String
+  package          Package? @relation(fields: [packageId], references: [id])
+  packageId        Int?
+  manufactureDate  DateTime
+  registrationDate DateTime
+  chassisCode      String
+  leads            Lead[]
+  createdAt        DateTime @default(now())
+  image1           Bytes    @db.LongBlob
+  image2           Bytes?   @db.LongBlob
+  image3           Bytes?   @db.LongBlob
+  image4           Bytes?   @db.LongBlob
+  image5           Bytes?   @db.LongBlob
 }
 
 model Lead {
@@ -48,7 +77,9 @@ model Lead {
   message   String?
   contacted Boolean  @default(false)
   timestamp DateTime @default(now())
-  Car       Car?     @relation(fields: [carId], references: [id])
+  country   String?
+  address   String?
+  city      String?
+  car       Car?     @relation(fields: [carId], references: [id])
   carId     Int?
-
 }
