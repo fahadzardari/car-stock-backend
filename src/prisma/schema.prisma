@@ -67,8 +67,8 @@ model Car {
   manufactureDate  DateTime
   registrationDate DateTime
   chassisCode      String
-  status           String
-  category         String
+  status           String   @default("available")
+  category         String   @default("newArrival")
   createdAt        DateTime @default(now())
   image1           Bytes    @db.LongBlob
   image2           Bytes?   @db.LongBlob
