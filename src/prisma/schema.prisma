@@ -52,6 +52,8 @@ model Car {
   makeId           Int
   model            Model    @relation(fields: [modelId], references: [id])
   modelId          Int
+  package          Package? @relation(fields: [packageId], references: [id])
+  packageId        Int?
   year             Int
   fuel             String
   mileage          Int
@@ -62,18 +64,18 @@ model Car {
   steeringPosition String
   location         String
   price            Int
-  package          Package? @relation(fields: [packageId], references: [id])
-  packageId        Int?
   manufactureDate  DateTime
   registrationDate DateTime
   chassisCode      String
-  leads            Lead[]
+  status           String
+  category         String
   createdAt        DateTime @default(now())
   image1           Bytes    @db.LongBlob
   image2           Bytes?   @db.LongBlob
   image3           Bytes?   @db.LongBlob
   image4           Bytes?   @db.LongBlob
   image5           Bytes?   @db.LongBlob
+  leads            Lead[]
 }
 
 model Lead {
