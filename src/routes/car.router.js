@@ -5,7 +5,6 @@ const carRouter = Router();
 
 // will be used from client side that's why no middleware
 carRouter.get("/", carController.get);
-carRouter.get("/makes", carController.getMakes);
 carRouter.get("/paginated", carController.getPaginated);
 carRouter.get("/:id", carController.getCarById);
 
