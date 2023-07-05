@@ -11,8 +11,8 @@ export const carServices = {
   },
   getPaginated: async (req) => {
     try {
-      const page = parseInt(req.query.page);
-      const limit = parseInt(req.query.limit);
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
       const skip = (page - 1) * limit;
       const totalCars = await prisma.car.count();
       const cars = await prisma.car.findMany({
@@ -20,13 +20,27 @@ export const carServices = {
         take: limit,
         select: {
           id: true,
-          make: true,
-          model: true,
-          year: true,
-          priceRange: true,
-          steering: true,
           mileage: true,
+          price: true,
+          steeringPosition: true,
+          transmissionType: true,
           image1: true,
+          location: true,
+          make: {
+            select: {
+              name: true,
+            },
+          },
+          model: {
+            select: {
+              name: true,
+            },
+          },
+          package: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
 
@@ -42,6 +56,8 @@ export const carServices = {
   create: async (car) => {
     try {
       car = setCarImages(car);
+      car.registrationDate = new Date(car.registrationDate);
+      car.manufactureDate = new Date(car.manufactureDate);
       const result = await prisma.car.create({ data: car });
       return result;
     } catch (error) {
