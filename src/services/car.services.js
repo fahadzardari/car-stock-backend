@@ -40,7 +40,7 @@ export const carServices = {
           price: true,
           steeringPosition: true,
           transmissionType: true,
-          // image1: true,
+          image1: true,
           location: true,
           make: {
             select: {
