@@ -1,5 +1,6 @@
 import prisma from "../utils/prisma.js";
 import { setCarImages } from "../helpers/setCarImages.js";
+import { processCarQuery } from "../helpers/processCarQuery.js";
 export const carServices = {
   get: async () => {
     try {
@@ -11,22 +12,51 @@ export const carServices = {
   },
   getPaginated: async (req) => {
     try {
-      const page = parseInt(req.query.page);
-      const limit = parseInt(req.query.limit);
+      const query = processCarQuery(req.query);
+      const page = parseInt(query.page) || 1;
+      const limit = parseInt(query.limit) || 10;
+      const where = query.where;
+      const order = query.orderBy;
       const skip = (page - 1) * limit;
-      const totalCars = await prisma.car.count();
+      console.log(query);
+      const totalCars = await prisma.car.count({
+        where: {
+          ...where,
+        },
+      });
+      console.log(query);
       const cars = await prisma.car.findMany({
         skip,
         take: limit,
+        orderBy: {
+          ...order,
+        },
+        where: {
+          ...where,
+        },
         select: {
           id: true,
-          make: true,
-          model: true,
-          year: true,
-          priceRange: true,
-          steering: true,
           mileage: true,
+          price: true,
+          steeringPosition: true,
+          transmissionType: true,
           image1: true,
+          location: true,
+          make: {
+            select: {
+              name: true,
+            },
+          },
+          model: {
+            select: {
+              name: true,
+            },
+          },
+          package: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
 
@@ -42,6 +72,8 @@ export const carServices = {
   create: async (car) => {
     try {
       car = setCarImages(car);
+      car.registrationDate = new Date(car.registrationDate);
+      car.manufactureDate = new Date(car.manufactureDate);
       const result = await prisma.car.create({ data: car });
       return result;
     } catch (error) {
@@ -54,19 +86,6 @@ export const carServices = {
         where: {
           id: id, // Replace with the actual ID of the car you want to find
         },
-      });
-      return result;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  },
-  getMakes: async () => {
-    try {
-      const result = await prisma.car.findMany({
-        select: {
-          make: true,
-        },
-        distinct: ["make"],
       });
       return result;
     } catch (error) {
