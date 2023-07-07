@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import prisma from "../utils/prisma.js";
-import { getToken } from "../utils/jwtToken.js";
+import { getToken, verifyToken } from "../utils/jwtToken.js";
 export const authServices = {
   login: async (user) => {
     try {
@@ -33,4 +33,8 @@ export const authServices = {
       throw error;
     }
   },
+  verify: async (user) => {
+      return verifyToken(user.token);
+     
+  }
 };
