@@ -76,6 +76,8 @@ model Car {
   image4           Bytes?   @db.LongBlob
   image5           Bytes?   @db.LongBlob
   leads            Lead[]
+  Options          Options? @relation(fields: [optionsId], references: [id])
+  optionsId        Int?
 }
 
 model Lead {
@@ -89,6 +91,49 @@ model Lead {
   country   String?
   address   String?
   city      String?
+  make      String?
+  model     String?
   car       Car?     @relation(fields: [carId], references: [id])
   carId     Int?
+}
+
+model Options {
+  id                    Int      @id @default(autoincrement())
+  createdAt             DateTime @default(now())
+  Car                   Car[]
+  carId                 Int?
+  cdPlayer              Boolean  @default(false)
+  sunRoof               Boolean  @default(false)
+  leatherSeats          Boolean  @default(false)
+  powerSteering         Boolean  @default(false)
+  powerWindow           Boolean  @default(false)
+  ac                    Boolean  @default(false)
+  airBags               Boolean  @default(false)
+  antiLockBrakingSystem Boolean  @default(false)
+  amFmRadio             Boolean  @default(false)
+  powerSeats            Boolean  @default(false)
+  sideAirBags           Boolean  @default(false)
+  navigationSystem      Boolean  @default(false)
+  centralLocking        Boolean  @default(false)
+  keyLessEntry          Boolean  @default(false)
+  cruiseControl         Boolean  @default(false)
+  backTire              Boolean  @default(false)
+  backCamera            Boolean  @default(false)
+  rearSpoiler           Boolean  @default(false)
+  jackTools             Boolean  @default(false)
+  spareTire             Boolean  @default(false)
+  powerMirrors          Boolean  @default(false)
+  frontFogLights        Boolean  @default(false)
+  frontLipSpoiler       Boolean  @default(false)
+  rearLipSpoiler        Boolean  @default(false)
+  rearWiper             Boolean  @default(false)
+  pushStart             Boolean  @default(false)
+  turbo                 Boolean  @default(false)
+  fourWheelDrive        Boolean  @default(false)
+  twoWheelDrive         Boolean  @default(false)
+  sideSkirt             Boolean  @default(false)
+  nonSmoker             Boolean  @default(false)
+  dvdPlayer             Boolean  @default(false)
+  oneOwner              Boolean  @default(false)
+  bodyKit               Boolean  @default(false)
 }

@@ -1,4 +1,5 @@
 import { leadServices } from "../services/lead.services.js";
+import { sendMail } from "../utils/leadMail.js";
 export const leadController = {
   get: async (req, res) => {
     try {
@@ -13,6 +14,7 @@ export const leadController = {
   create: async (req, res) => {
     try {
       const lead = await leadServices.create(req.body);
+      sendMail(lead);
       return res
         .status(201)
         .json({ result: "successfully created lead", lead: lead });

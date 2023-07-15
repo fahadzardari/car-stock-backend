@@ -1,4 +1,3 @@
-import { sendMail } from "../config/mail.js";
 import { authServices } from "../services/auth.services.js";
 export const authController = {
   login: async (req, res) => {
