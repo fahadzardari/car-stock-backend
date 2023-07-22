@@ -23,8 +23,6 @@ export const processCarQuery = (q) => {
     : null;
   setDates(query, q);
 
-
-  
   if (q.minMileage || q.maxMileage) {
     query.where.mileage = {};
     if (q.minMileage) {
@@ -63,7 +61,7 @@ const setDates = (query, q) => {
   if (q.registrationDate) {
     const dateParts = q.registrationDate.split("-");
     const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; 
+    const month = parseInt(dateParts[1]) - 1;
     const day = parseInt(dateParts[2]);
 
     const startDate = new Date(year, month, day);
@@ -94,7 +92,7 @@ const setDates = (query, q) => {
   if (q.manufactureDate) {
     const dateParts = q.manufactureDate.split("-");
     const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1; 
+    const month = parseInt(dateParts[1]) - 1;
     const day = parseInt(dateParts[2]);
 
     const startDate = new Date(year, month, day);

@@ -28,7 +28,7 @@ export const carController = {
   },
   create: async (req, res) => {
     try {
-      const car = await carServices.create(req.body.data);
+      const car = await carServices.create(req.body);
       return res
         .status(201)
         .json({ result: "successfully created car", car: car });

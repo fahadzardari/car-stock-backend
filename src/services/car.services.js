@@ -69,12 +69,19 @@ export const carServices = {
       throw new Error(error.message);
     }
   },
-  create: async (car) => {
+  create: async (body) => {
     try {
-      car = setCarImages(car);
-      car.registrationDate = new Date(car.registrationDate);
-      car.manufactureDate = new Date(car.manufactureDate);
-      const result = await prisma.car.create({ data: car });
+      console.log(body.data)
+      body.data = setCarImages(body.data);
+      body.data.registrationDate = new Date(body.data.registrationDate);
+      body.data.manufactureDate = new Date(body.data.manufactureDate);
+      const result = await prisma.car.create({ data: body.data });
+      if (body.options) {
+        body.options.carId = result.id;
+        await prisma.options.create({
+          data: body.options,
+        });
+      }
       return result;
     } catch (error) {
       throw new Error(error.message);
