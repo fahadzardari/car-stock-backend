@@ -42,6 +42,7 @@ export const carServices = {
           transmissionType: true,
           image1: true,
           location: true,
+          year: true,
           make: {
             select: {
               name: true,
@@ -71,7 +72,7 @@ export const carServices = {
   },
   create: async (body) => {
     try {
-      console.log(body.data)
+      console.log(body.data);
       body.data = setCarImages(body.data);
       body.data.registrationDate = new Date(body.data.registrationDate);
       body.data.manufactureDate = new Date(body.data.manufactureDate);
@@ -89,12 +90,37 @@ export const carServices = {
   },
   getCarById: async (id) => {
     try {
-      const result = await prisma.car.findUnique({
+      const car = await prisma.car.findUnique({
         where: {
           id: id, // Replace with the actual ID of the car you want to find
         },
+        include: {
+          make: {
+            select: {
+              name: true,
+            },
+          },
+          model: {
+            select: {
+              name: true,
+            },
+          },
+          package: {
+            select: {
+              name: true,
+            },
+          },
+        },
       });
-      return result;
+      const options = await prisma.options.findFirst({
+        where: {
+          carId: id,
+        },
+      });
+      return {
+        car,
+        options,
+      };
     } catch (error) {
       throw new Error(error.message);
     }

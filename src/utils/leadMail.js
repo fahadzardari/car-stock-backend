@@ -4,7 +4,7 @@ import { transporter } from "../config/mail.js";
 export const sendMail = (lead) => {
   const mailOptions = {
     from: MAIL,
-    // to: <Admin Mail>,
+    to: "fahadzardari222@gmail.com",
     subject: "Lead Is Created",
     html: `<h1>Lead is created</h1>
            <p>Lead Name: ${lead.name}</p>

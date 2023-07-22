@@ -9,6 +9,9 @@ export const processCarQuery = (q) => {
   q.packageId ? (query.where.packageId = parseInt(q.packageId)) : null;
   q.price ? (query.where.price = parseInt(q.price)) : null;
   q.fuel ? (query.where.fuel = q.fuel) : null;
+  q.category ? (query.where.category = q.category) : null;
+  q.color ? (query.where.color = q.color) : null;
+  q.status ? (query.where.status = q.status) : null;
   q.transmissionType
     ? (query.where.transmissionType = q.transmissionType)
     : null;

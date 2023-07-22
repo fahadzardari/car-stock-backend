@@ -39,9 +39,9 @@ export const carController = {
   getCarById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const car = await carServices.getCarById(id);
+      const {car , options} = await carServices.getCarById(id);
       if(car == null) return res.status(404).json({result: "Car Doesn't exist"});
-      return res.status(200).json({ result: "successfully got car", car: car });
+      return res.status(200).json({ result: "successfully got car", car: car , options: options});
     } catch (error) {
       return res.status(500).json({ result: "error", message: error.message });
     }

@@ -89,10 +89,12 @@ model Lead {
   destinationPort    String?
   address            String?
   city               String?
-  message            String
-  type               String
-  contacted          Boolean
-  timestamp          DateTime
+  message            String?
+  type               String?
+  make               String?
+  model              String?
+  contacted          Boolean  @default(false)
+  timestamp          DateTime @default(now())
   car                Car?     @relation(fields: [carId], references: [id])
   carId              Int?
 }
