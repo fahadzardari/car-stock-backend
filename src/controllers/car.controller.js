@@ -12,15 +12,17 @@ export const carController = {
   },
   getPaginated: async (req, res) => {
     try {
-      const { cars, currentPage, totalPages } =
+      const { cars , options , totalCars , currentPage, totalPages } =
         await carServices.getPaginated(req);
       return res
         .status(200)
         .json({
           result: "successfully got paginated cars",
+          totalCars: totalCars,
           currentPage: currentPage,
           totalPages: totalPages,
           cars: cars,
+          options: options,
         });
     } catch (error) {
       return res.status(500).json({ result: "error", message: error.message });

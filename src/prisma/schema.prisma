@@ -28,7 +28,7 @@ model Make {
 model Model {
   id        Int       @id @default(autoincrement())
   name      String    @unique
-  make      Make      @relation(fields: [makeId], references: [id])
+  make      Make      @relation(fields: [makeId], references: [id], onDelete: Restrict)
   makeId    Int
   createdAt DateTime  @default(now())
   Package   Package[]
@@ -38,9 +38,9 @@ model Model {
 model Package {
   id        Int      @id @default(autoincrement())
   name      String   @unique
-  make      Make     @relation(fields: [makeId], references: [id])
+  make      Make     @relation(fields: [makeId], references: [id], onDelete: Restrict)
   makeId    Int
-  model     Model    @relation(fields: [modelId], references: [id])
+  model     Model    @relation(fields: [modelId], references: [id], onDelete: Restrict)
   modelId   Int
   createdAt DateTime @default(now())
   Car       Car[]
@@ -48,11 +48,11 @@ model Package {
 
 model Car {
   id               Int      @id @default(autoincrement())
-  make             Make     @relation(fields: [makeId], references: [id])
+  make             Make     @relation(fields: [makeId], references: [id], onDelete: Restrict)
   makeId           Int
-  model            Model    @relation(fields: [modelId], references: [id])
+  model            Model    @relation(fields: [modelId], references: [id], onDelete: Restrict)
   modelId          Int
-  package          Package? @relation(fields: [packageId], references: [id])
+  package          Package? @relation(fields: [packageId], references: [id], onDelete: Restrict)
   packageId        Int?
   year             Int
   fuel             String
@@ -76,7 +76,7 @@ model Car {
   image4           Bytes?   @db.LongBlob
   image5           Bytes?   @db.LongBlob
   leads            Lead[]
-  Options          Options? @relation(fields: [optionsId], references: [id])
+  Options          Options? @relation(fields: [optionsId], references: [id], onDelete: Restrict)
   optionsId        Int?
 }
 
@@ -95,7 +95,7 @@ model Lead {
   model              String?
   contacted          Boolean  @default(false)
   timestamp          DateTime @default(now())
-  car                Car?     @relation(fields: [carId], references: [id])
+  car                Car?     @relation(fields: [carId], references: [id], onDelete: Restrict)
   carId              Int?
 }
 

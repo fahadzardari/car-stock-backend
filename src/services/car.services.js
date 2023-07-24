@@ -61,8 +61,21 @@ export const carServices = {
         },
       });
 
+      // Fetch and associate options for each car
+      const carIds = cars.map((car) => car.id);
+      const options = await prisma.options.findMany({
+        where: {
+          carId: {
+            in: carIds,
+          },
+        },
+      });
+
+
       return {
         cars,
+        options: options,
+        totalCars: totalCars,
         currentPage: page,
         totalPages: Math.ceil(totalCars / limit),
       };
