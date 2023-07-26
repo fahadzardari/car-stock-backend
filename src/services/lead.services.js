@@ -21,7 +21,7 @@ export const leadServices = {
       const page = parseInt(req.query.page);
       const limit = parseInt(req.query.limit);
       const skip = (page - 1) * limit;
-      const contacted = req.query.contacted === "true";
+      const contacted = (req.query.contacted === "true");
       let leads;
       let totalLeads;
       const commonOptions = {
@@ -38,9 +38,10 @@ export const leadServices = {
         });
       } else {
         // If contacted is not provided or false, fetch all leads
-        totalLeads = await prisma.lead.count();
+        totalLeads = await prisma.lead.count({where: {contacted: false}});
         leads = await prisma.lead.findMany({
           ...commonOptions,
+          where: { contacted: false },
           orderBy: { timestamp: "desc" },
         });
       }

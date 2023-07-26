@@ -24,7 +24,7 @@ export const leadController = {
   },
   getPaginated: async (req, res) => {
     try {
-      const { leads, currentPage, totalPages } =
+      const { leads, currentPage, totalPages  } =
         await leadServices.getPaginated(req);
       return res
         .status(201)

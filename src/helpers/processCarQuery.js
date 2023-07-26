@@ -12,20 +12,14 @@ export const processCarQuery = (q) => {
   q.category ? (query.where.category = q.category) : null;
   q.color ? (query.where.color = q.color) : null;
   q.status ? (query.where.status = q.status) : null;
-  q.transmissionType
-    ? (query.where.transmissionType = q.transmissionType)
-    : null;
-  q.steeringPosition
-    ? (query.where.steeringPosition = q.steeringPosition)
-    : null;
+  q.transmissionType? (query.where.transmissionType = q.transmissionType): null;
+  q.steeringPosition? (query.where.steeringPosition = q.steeringPosition): null;
   q.location ? (query.where.location = q.location) : null;
   q.driveType ? (query.where.driveType = q.driveType) : null;
   q.engineCC ? (query.where.engineCC = parseInt(q.engineCC)) : null;
-  q.manufactureDate
-    ? (query.where.manufactureDate = new Date(q.manufactureDate))
-    : null;
-  setDates(query, q);
+  q.year ? (query.where.year = parseInt(q.year)) : null;
 
+  // for mileage min and max
   if (q.minMileage || q.maxMileage) {
     query.where.mileage = {};
     if (q.minMileage) {
@@ -46,7 +40,7 @@ export const processCarQuery = (q) => {
       query.where.engineCC.lte = parseInt(q.maxEngineCC);
     }
   }
-
+  // minimum and maximum price
   if (q.minPrice || q.maxPrice) {
     query.where.price = {};
     if (q.minPrice) {
@@ -57,72 +51,16 @@ export const processCarQuery = (q) => {
     }
   }
 
+  // for year min and max
+  if (q.minYear || q.maxYear) {
+    query.where.year = {};
+    if (q.minYear) {
+      query.where.year.gte = parseInt(q.minYear);
+    }
+    if (q.maxYear) {
+      query.where.year.lte = parseInt(q.maxYear);
+    }
+  }
+
   return query;
-};
-
-const setDates = (query, q) => {
-  if (q.registrationDate) {
-    const dateParts = q.registrationDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1;
-    const day = parseInt(dateParts[2]);
-
-    const startDate = new Date(year, month, day);
-    const endDate = new Date(year, month, day + 1); // Assuming you want to search within the specified date only
-
-    query.where.registrationDate = { gte: startDate, lt: endDate };
-  }
-  if (q.minRegistrationDate || q.maxRegistrationDate) {
-    query.where.registrationDate = {};
-    if (q.minRegistrationDate) {
-      const minDateParts = q.minRegistrationDate.split("-");
-      const minYear = parseInt(minDateParts[0]);
-      const minMonth = parseInt(minDateParts[1]) - 1;
-      const minDay = parseInt(minDateParts[2]);
-      const minDate = new Date(minYear, minMonth, minDay);
-      query.where.registrationDate.gte = minDate;
-    }
-    if (q.maxRegistrationDate) {
-      const maxDateParts = q.maxRegistrationDate.split("-");
-      const maxYear = parseInt(maxDateParts[0]);
-      const maxMonth = parseInt(maxDateParts[1]) - 1;
-      const maxDay = parseInt(maxDateParts[2]);
-      const maxDate = new Date(maxYear, maxMonth, maxDay + 1);
-      query.where.registrationDate.lt = maxDate;
-    }
-  }
-
-  if (q.manufactureDate) {
-    const dateParts = q.manufactureDate.split("-");
-    const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]) - 1;
-    const day = parseInt(dateParts[2]);
-
-    const startDate = new Date(year, month, day);
-    const endDate = new Date(year, month, day + 1); // Assuming you want to search within the specified date only
-
-    query.where.manufactureDate = { gte: startDate, lt: endDate };
-  }
-
-  if (q.minManufactureDate || q.maxManufactureDate) {
-    query.where.manufactureDate = {};
-
-    if (q.minManufactureDate) {
-      const minDateParts = q.minManufactureDate.split("-");
-      const minYear = parseInt(minDateParts[0]);
-      const minMonth = parseInt(minDateParts[1]) - 1;
-      const minDay = parseInt(minDateParts[2]);
-      const minDate = new Date(minYear, minMonth, minDay);
-      query.where.manufactureDate.gte = minDate;
-    }
-
-    if (q.maxManufactureDate) {
-      const maxDateParts = q.maxManufactureDate.split("-");
-      const maxYear = parseInt(maxDateParts[0]);
-      const maxMonth = parseInt(maxDateParts[1]) - 1;
-      const maxDay = parseInt(maxDateParts[2]);
-      const maxDate = new Date(maxYear, maxMonth, maxDay + 1);
-      query.where.manufactureDate.lt = maxDate;
-    }
-  }
 };
