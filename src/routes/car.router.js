@@ -14,5 +14,6 @@ carRouter.use(confirmToken);
 carRouter.post("/", carController.create);
 carRouter.delete("/:id", carController.delete);
 carRouter.patch("/:id", carController.update);
+carRouter.patch("/:id/options", carController.updateOptions)
 
 export default carRouter;

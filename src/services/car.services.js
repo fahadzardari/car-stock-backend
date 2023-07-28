@@ -71,7 +71,6 @@ export const carServices = {
         },
       });
 
-
       return {
         cars,
         options: options,
@@ -157,6 +156,20 @@ export const carServices = {
           id: id,
         },
         data: car,
+      });
+      return result;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  updateOptions: async (id, options) => {
+    try {
+      console.log(options)
+      const result = await prisma.options.update({
+        where: {
+          id: parseInt(id),
+        },
+        data: options,
       });
       return result;
     } catch (error) {
