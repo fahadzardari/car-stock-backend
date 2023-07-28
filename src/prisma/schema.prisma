@@ -76,7 +76,7 @@ model Car {
   image4           Bytes?   @db.LongBlob
   image5           Bytes?   @db.LongBlob
   leads            Lead[]
-  Options          Options? @relation(fields: [optionsId], references: [id], onDelete: Restrict)
+  Options          Options? @relation(fields: [optionsId], references: [id], onDelete: Cascade)
   optionsId        Int?
 }
 
