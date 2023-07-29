@@ -84,7 +84,6 @@ export const carServices = {
   },
   create: async (body) => {
     try {
-      console.log(body.data);
       body.data = setCarImages(body.data);
       body.data.registrationDate = new Date(body.data.registrationDate);
       body.data.manufactureDate = new Date(body.data.manufactureDate);
@@ -151,6 +150,7 @@ export const carServices = {
   },
   update: async (id, car) => {
     try {
+      car = setCarImages(car);
       const result = await prisma.car.update({
         where: {
           id: id,
@@ -164,7 +164,7 @@ export const carServices = {
   },
   updateOptions: async (id, options) => {
     try {
-      console.log(options)
+      console.log(options);
       const result = await prisma.options.update({
         where: {
           id: parseInt(id),
