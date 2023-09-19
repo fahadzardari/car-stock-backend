@@ -1,0 +1,36 @@
+in car-stock-frontend folder
+
+
+go to folder utils and inside file constants.js change the apiHead variable to the url of api
+
+then
+
+run following commands
+npm install
+npm run build
+
+build will be inside the dist folder
+
+
+
+for the car-stock-admin folder
+
+go inside src folder then in utils folder open apiHead.js file and change the value of apiHead variable to the url of api/backend
+
+then run
+npm install
+npm run build
+the build will be in dist folder tooo
+
+
+now for the car-stock-backend
+
+first add the .env file in the folder which is provided and add the necessary environment variables
+then run following commands 
+npm install
+cd ./src
+npx prisma migrate deploy
+npx prisma generate
+
+after this the database will be created in the url provided
+

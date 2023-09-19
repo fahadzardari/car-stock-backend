@@ -48,25 +48,25 @@ model Package {
 
 model Car {
   id               Int      @id @default(autoincrement())
-  make             Make     @relation(fields: [makeId], references: [id], onDelete: Restrict)
-  makeId           Int
-  model            Model    @relation(fields: [modelId], references: [id], onDelete: Restrict)
-  modelId          Int
+  make             Make?     @relation(fields: [makeId], references: [id], onDelete: Restrict)
+  makeId           Int?
+  model            Model?    @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  modelId          Int?
   package          Package? @relation(fields: [packageId], references: [id], onDelete: Restrict)
   packageId        Int?
-  year             Int
-  fuel             String
-  mileage          Int
-  color            String
-  engineCC         Int
-  transmissionType String
-  driveType        String
-  steeringPosition String
-  location         String
-  price            Int
-  manufactureDate  DateTime
-  registrationDate DateTime
-  chassisCode      String
+  year             Int?
+  fuel             String?
+  mileage          Int?
+  color            String?
+  engineCC         Int?
+  transmissionType String?
+  driveType        String?
+  steeringPosition String?
+  location         String?
+  price            Int?
+  manufactureDate  DateTime?
+  registrationDate DateTime?
+  chassisCode      String?
   status           String   @default("available")
   category         String   @default("newArrival")
   createdAt        DateTime @default(now())
