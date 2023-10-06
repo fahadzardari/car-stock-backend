@@ -70,11 +70,16 @@ model Car {
   status           String   @default("available")
   category         String   @default("newArrival")
   createdAt        DateTime @default(now())
-  image1           Bytes    @db.LongBlob
-  image2           Bytes?   @db.LongBlob
+  image1           Bytes    @db.LongBlob  
+  image2           Bytes?   @db.LongBlob  
   image3           Bytes?   @db.LongBlob
   image4           Bytes?   @db.LongBlob
   image5           Bytes?   @db.LongBlob
+  image6           Bytes?   @db.LongBlob
+  image7           Bytes?   @db.LongBlob
+  image8           Bytes?   @db.LongBlob
+  image9           Bytes?   @db.LongBlob
+  image10          Bytes?   @db.LongBlob
   leads            Lead[]
   Options          Options? @relation(fields: [optionsId], references: [id], onDelete: Cascade)
   optionsId        Int?
