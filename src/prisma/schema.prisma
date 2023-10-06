@@ -95,7 +95,7 @@ model Lead {
   model              String?
   contacted          Boolean  @default(false)
   timestamp          DateTime @default(now())
-  car                Car?     @relation(fields: [carId], references: [id], onDelete: Restrict)
+  car                Car?     @relation(fields: [carId], references: [id], onDelete: Cascade)
   carId              Int?
 }
 
